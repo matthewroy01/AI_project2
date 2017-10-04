@@ -10,7 +10,8 @@ KinematicWanderSteering::KinematicWanderSteering(KinematicUnit *pMover)
 
 Steering* KinematicWanderSteering::getSteering()
 {
-	mLinear = mpMover->getOrientationAsVector() * mpMover->getMaxVelocity(); 
-	mAngular = mpMover->getOrientation() * ( genRandomBinomial() * MAX_WANDER_ROTATION );
+	std::cout << "tfw you fix the professor's code by changing a * to a +" << std::endl;
+	mLinear = mpMover->getOrientationAsVector() * mpMover->getMaxVelocity();
+	mAngular = mpMover->getOrientation() + ( genRandomBinomial() * 0.5 );
 	return this;
 }

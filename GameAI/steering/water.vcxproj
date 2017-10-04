@@ -34,6 +34,7 @@
     <ClInclude Include="UnitCreateSeekMessage.h" />
     <ClInclude Include="UnitDeleteRandomMessage.h" />
     <ClInclude Include="UnitManager.h" />
+    <ClInclude Include="WanderAndSeek.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DynamicArriveSteering.cpp" />
@@ -59,6 +60,7 @@
     <ClCompile Include="UnitCreateSeekMessage.cpp" />
     <ClCompile Include="UnitDeleteRandomMessage.cpp" />
     <ClCompile Include="UnitManager.cpp" />
+    <ClCompile Include="WanderAndSeekcpp.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{07ED8114-0659-4424-9468-50DBBEA5882A}</ProjectGuid>

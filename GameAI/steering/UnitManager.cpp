@@ -53,6 +53,24 @@ void UnitManager::AddUnit(KinematicUnit* uni, int AItype)
 			mpUnits[mpUnits.size() - 1]->dynamicSeek(GetUnit(0));
 			break;
 		}
+		case 3:
+		{
+			// wander and seek
+
+			// wander and then seek the player once it gets inside a certain radius
+
+			mpUnits[mpUnits.size() - 1]->wanderAndSeek(GetUnit(0));
+			break;
+		}
+		case 4:
+		{
+			// wander
+
+			// for testing
+
+			mpUnits[mpUnits.size() - 1]->wander();
+			break;
+		}
 	}
 }
 
