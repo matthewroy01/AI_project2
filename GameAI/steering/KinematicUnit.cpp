@@ -98,7 +98,7 @@ void KinematicUnit::arrive(const Vector2D &target)
 
 void KinematicUnit::wander()
 {
-	KinematicWanderSteering* pWanderSteering = new KinematicWanderSteering( this );
+	KinematicWanderSteering* pWanderSteering = new KinematicWanderSteering( this, gpGame->getUnitManager()->GetUnit(0), true, 100);
 	setSteering( pWanderSteering );
 }
 
