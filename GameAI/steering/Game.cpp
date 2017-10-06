@@ -163,8 +163,8 @@ bool Game::init()
 
 	//setup walls
 	mpUnitManager->AddUnit(new KinematicUnit(mpWall, Vector2D(0, -50), 0, Vector2D(0, 0), 0, 0, 0));
-	mpUnitManager->AddUnit(new KinematicUnit(mpWall, Vector2D(0, mpGraphicsSystem->getWidth() / 2), -0.5f * 3.14, Vector2D(0, 0), 0, 0, 0));
-	mpUnitManager->AddUnit(new KinematicUnit(mpWall, Vector2D(mpGraphicsSystem->getWidth(), mpGraphicsSystem->getWidth() / 2), -0.5f * 3.14, Vector2D(0, 0), 0, 0, 0));
+	mpUnitManager->AddUnit(new KinematicUnit(mpWall, Vector2D(0, mpGraphicsSystem->getWidth() / 2), -0.5f * MY_PI, Vector2D(0, 0), 0, 0, 0));
+	mpUnitManager->AddUnit(new KinematicUnit(mpWall, Vector2D(mpGraphicsSystem->getWidth(), mpGraphicsSystem->getWidth() / 2), -0.5f * MY_PI, Vector2D(0, 0), 0, 0, 0));
 	mpUnitManager->AddUnit(new KinematicUnit(mpWall, Vector2D(0, mpGraphicsSystem->getHeight() - 50), 0, Vector2D(0, 0), 0, 0, 0));
 
 	//setup units
