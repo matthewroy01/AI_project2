@@ -4,7 +4,7 @@
 
 class KinematicUnit;
 
-const float WAS_MAX_WANDER_ROTATION = 0.4f;
+const float WAS_MAX_WANDER_ROTATION = 0.5f;
 
 class WanderAndSeek : public Steering
 {

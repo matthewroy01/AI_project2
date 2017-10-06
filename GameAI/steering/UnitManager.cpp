@@ -19,6 +19,14 @@ UnitManager::~UnitManager()
 			delete mpUnits[i];
 		}
 	}
+
+	for (unsigned int i = 0; i < mpWalls.size(); i++)
+	{
+		if (mpWalls[i] != NULL)
+		{
+			delete mpWalls[i];
+		}
+	}
 }
 
 void UnitManager::AddUnit(KinematicUnit* uni, int AItype)
@@ -74,6 +82,11 @@ void UnitManager::AddUnit(KinematicUnit* uni, int AItype)
 	}
 }
 
+void UnitManager::AddUnit(KinematicUnit* uni)
+{
+	mpWalls.push_back(uni);
+}
+
 void UnitManager::RemoveRandomUnit()
 {
 	//delete unit
@@ -123,6 +136,11 @@ void UnitManager::UnitDraw(GraphicsBuffer* buffer)
 	for (unsigned int i = 0; i < mpUnits.size(); i++)
 	{
 		mpUnits[i]->draw(buffer);
+	}
+
+	for (unsigned int i = 0; i < mpWalls.size(); i++)
+	{
+		mpWalls[i]->draw(buffer);
 	}
 }
 

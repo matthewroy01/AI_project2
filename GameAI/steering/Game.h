@@ -24,6 +24,7 @@ class InputManager;
 const IDType BACKGROUND_SPRITE_ID = 0;
 const IDType PLAYER_ICON_SPRITE_ID = 1;
 const IDType AI_ICON_SPRITE_ID = 2;
+const IDType WALL_SPRITE_ID = 3;
 
 const float LOOP_TARGET_TIME = 33.3f;//how long should each frame of execution take? 30fps = 33.3ms/frame
 
@@ -65,6 +66,7 @@ private:
 	Timer* mpMasterTimer;
 	bool mShouldExit;
 	Sprite* mpEnemyArrow;
+	Sprite* mpWall;
 	
 	// new stuff
 	UnitManager* mpUnitManager;
@@ -78,6 +80,7 @@ private:
 	IDType mBackgroundBufferID;
 	IDType mPlayerIconBufferID;
 	IDType mEnemyIconBufferID;
+	IDType mWallBufferID;
 };
 
 float genRandomBinomial();//range -1:1 from "Artificial Intelligence for Games", Millington and Funge

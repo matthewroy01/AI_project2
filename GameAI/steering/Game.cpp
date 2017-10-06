@@ -135,6 +135,7 @@ bool Game::init()
 	mBackgroundBufferID = mpGraphicsBufferManager->loadBuffer("wallpaper.bmp");
 	mPlayerIconBufferID = mpGraphicsBufferManager->loadBuffer("arrow.bmp");
 	mEnemyIconBufferID = mpGraphicsBufferManager->loadBuffer("enemy-arrow.bmp");
+	mWallBufferID = mpGraphicsBufferManager->loadBuffer("horWall.bmp");
 	
 	//setup sprites
 	GraphicsBuffer* pBackGroundBuffer = mpGraphicsBufferManager->getBuffer( mBackgroundBufferID );
@@ -149,13 +150,22 @@ bool Game::init()
 		pArrowSprite = mpSpriteManager->createAndManageSprite( PLAYER_ICON_SPRITE_ID, pPlayerBuffer, 0, 0, pPlayerBuffer->getWidth(), pPlayerBuffer->getHeight() );
 	}
 	GraphicsBuffer* pAIBuffer = mpGraphicsBufferManager->getBuffer( mEnemyIconBufferID );
+	GraphicsBuffer* pWallBuffer = mpGraphicsBufferManager->getBuffer(mWallBufferID);
 
 	if( pAIBuffer != NULL )
 	{
 		mpEnemyArrow = mpSpriteManager->createAndManageSprite( AI_ICON_SPRITE_ID, pAIBuffer, 0, 0, pAIBuffer->getWidth(), pAIBuffer->getHeight() );
 	}
 
+	mpWall = mpSpriteManager->createAndManageSprite(WALL_SPRITE_ID, pWallBuffer, 0, 0, pWallBuffer->getWidth(), pWallBuffer->getHeight());
+
 	mpUnitManager = new UnitManager();
+
+	//setup walls
+	mpUnitManager->AddUnit(new KinematicUnit(mpWall, Vector2D(0, -50), 0, Vector2D(0, 0), 0, 0, 0));
+	mpUnitManager->AddUnit(new KinematicUnit(mpWall, Vector2D(0, mpGraphicsSystem->getWidth() / 2), -0.5f * 3.14, Vector2D(0, 0), 0, 0, 0));
+	mpUnitManager->AddUnit(new KinematicUnit(mpWall, Vector2D(mpGraphicsSystem->getWidth(), mpGraphicsSystem->getWidth() / 2), -0.5f * 3.14, Vector2D(0, 0), 0, 0, 0));
+	mpUnitManager->AddUnit(new KinematicUnit(mpWall, Vector2D(0, mpGraphicsSystem->getHeight() - 50), 0, Vector2D(0, 0), 0, 0, 0));
 
 	//setup units
 	Vector2D pos( 0.0f, 0.0f );

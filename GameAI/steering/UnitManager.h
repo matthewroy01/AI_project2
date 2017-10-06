@@ -13,12 +13,14 @@ class UnitManager : public Trackable
 	private :
 		// a vector of all the units in the scene
 		std::vector <KinematicUnit*> mpUnits;
+		std::vector <KinematicUnit*> mpWalls;
 
 	public :
 		UnitManager();
 		~UnitManager();
 
 		void AddUnit(KinematicUnit* uni, int AItype);
+		void AddUnit(KinematicUnit* uni);
 		void RemoveRandomUnit();
 		KinematicUnit* GetUnit(int id);
 
