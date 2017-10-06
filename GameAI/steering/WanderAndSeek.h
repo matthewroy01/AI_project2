@@ -4,17 +4,22 @@
 
 class KinematicUnit;
 
-class WanderAndSeek :public Steering
+const float WAS_MAX_WANDER_ROTATION = 0.4f;
+
+class WanderAndSeek : public Steering
 {
 public:
-	WanderAndSeek(KinematicUnit* pMover, KinematicUnit* pTarget, bool shouldFlee, int i);
+	WanderAndSeek(KinematicUnit* pMover, KinematicUnit* pTarget, bool shouldFlee, int targetRadius);
 	~WanderAndSeek() {};
 
 	virtual Steering* getSteering();
-	int getDistance();
+	float getDistance();
 
 private:
 	KinematicUnit* mpMover;
 	KinematicUnit* mpTarget;
 	bool mShouldFlee;
+	int mTargetRadius;
+
+	bool mIsFleeing = false;
 };

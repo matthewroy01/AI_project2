@@ -164,10 +164,10 @@ bool Game::init()
 	
 	Vector2D pos2( 1000.0f, 500.0f );
 	Vector2D vel2( 0.0f, 0.0f );
-	mpUnitManager->AddUnit(new KinematicUnit(mpEnemyArrow, pos2, 1, vel2, 0.0f, 180.0f, 100.0f), 4);
+	mpUnitManager->AddUnit(new KinematicUnit(mpEnemyArrow, pos2, 1, vel2, 0.0f, 180.0f, 100.0f), 3);
 
 	Vector2D pos3( 500.0f, 500.0f );
-	mpUnitManager->AddUnit(new KinematicUnit(mpEnemyArrow, pos3, 1, vel2, 0.0f, 180.0f, 100.0f), 4);
+	mpUnitManager->AddUnit(new KinematicUnit(mpEnemyArrow, pos3, 1, vel2, 0.0f, 180.0f, 100.0f), 3);
 
 	return true;
 }

@@ -15,82 +15,35 @@ mShouldFlee(shouldFlee)
 
 Steering* KinematicWanderSteering::getSteering()
 {
-	Vector2D direction;
-	float distance;
-
-	if (mShouldFlee)
+	if (isFleeing || getDistance() < mTargetRadius)
 	{
-		direction = (mpTarget->getPosition() - mpMover->getPosition()) * -1;
-		distance = direction.getLength();
-	}
-	else
-	{
-		direction = mpTarget->getPosition() - mpMover->getPosition();
-		distance = direction.getLength();
-	}
-
-	if (distance < 400)
-	{
-		mLinear = mpTarget->getPosition() - mpMover->getPosition();
-
-		////inside the satisfaction radius?
-		//if (mLinear.getLengthSquared() < mTargetRadius * mTargetRadius)
-		//{
-		//	mLinear = gZeroVector2D;
-		//	mAngular = mpMover->getOrientation();
-		//	return this;
-		//}
-
-		////calc how long we'd like it to take to get there
-		//mLinear /= 1.0f;
-
-		//float maxVelocity = mpMover->getMaxVelocity();//for efficiency
-
-		//if (mLinear.getLengthSquared() > maxVelocity * maxVelocity)//velocity too great?
-		//{
-		//	//cap the velocity
-		//	mLinear.normalize();
-		//	mLinear *= maxVelocity;
-		//}
-
-		float targetSpeed = 0.0f;
-
-		//are we outside slow radius?
-		if (distance > 100)
-		{
-			targetSpeed = mpMover->getMaxVelocity();
-		}
-		else
-		{
-			targetSpeed = (mpMover->getMaxVelocity() * distance) / 100;
-		}
-
-		//combine speed and direction to get targetVelocity
-		Vector2D targetVelocity = direction;
-		targetVelocity.normalize();
-		targetVelocity *= targetSpeed;
-
-		//set acceleration
-		mLinear = targetVelocity - mpMover->getVelocity();
-		mLinear /= 1.0f;
-
-		//check if too fast
-		if (mLinear.getLength() > mpMover->getMaxAcceleration())
-		{
-			//cut down to max
-			mLinear.normalize();
-			mLinear *= mpMover->getMaxAcceleration();
-		}
-
-		mAngular = Kinematic::getOrientationFromVelocity(mpMover->getOrientation(), mLinear);
+		// flee
+		mLinear = mpMover->getPosition() - mpTarget->getPosition();
+		mLinear.normalize();
+		mLinear *= mpMover->getMaxVelocity();
+		mAngular = 0;
+		isFleeing = true;
 	}
 	else
 	{
 		// wander
 		mLinear = mpMover->getOrientationAsVector() * mpMover->getMaxVelocity();
 		mAngular = mpMover->getOrientation() + (genRandomBinomial() * MAX_WANDER_ROTATION);
-		mpMover->setOrientation(mAngular);
+		//mpMover->setOrientation(mAngular);
+	}
+
+	// stop fleeing if you are a safe distance away
+	if (getDistance() < mTargetRadius * 5)
+	{
+		isFleeing = false;
 	}
 
 	return this;
+}
+
+float KinematicWanderSteering::getDistance()
+{
+	std::cout << sqrt(pow(mpMover->getPosition().getX() - mpTarget->getPosition().getX(), 2.0f) + pow(mpMover->getPosition().getY() - mpTarget->getPosition().getY(), 2.0f)) << std::endl;
+	return sqrt(pow(mpMover->getPosition().getX() - mpTarget->getPosition().getX(), 2.0f)
+			  + pow(mpMover->getPosition().getY() - mpTarget->getPosition().getY(), 2.0f));
 }

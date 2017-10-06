@@ -60,7 +60,7 @@
     <ClCompile Include="UnitCreateSeekMessage.cpp" />
     <ClCompile Include="UnitDeleteRandomMessage.cpp" />
     <ClCompile Include="UnitManager.cpp" />
-    <ClCompile Include="WanderAndSeekcpp.cpp" />
+    <ClCompile Include="WanderAndSeek.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{07ED8114-0659-4424-9468-50DBBEA5882A}</ProjectGuid>

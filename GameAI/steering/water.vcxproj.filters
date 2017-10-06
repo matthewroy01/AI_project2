@@ -70,7 +70,7 @@
     <ClCompile Include="UnitDeleteRandomMessage.cpp">
       <Filter>Source Files\Messaging</Filter>
     </ClCompile>
-    <ClCompile Include="WanderAndSeekcpp.cpp">
+    <ClCompile Include="WanderAndSeek.cpp">
       <Filter>Source Files\Steering</Filter>
     </ClCompile>
   </ItemGroup>

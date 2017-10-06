@@ -13,10 +13,12 @@ public:
 	~KinematicWanderSteering(){};
 
 	virtual Steering* getSteering();
+	float getDistance();
 
 private:
 	KinematicUnit* mpMover;
 	KinematicUnit* mpTarget;
 	bool mShouldFlee;
 	float mTargetRadius;
+	bool isFleeing = false;
 };
