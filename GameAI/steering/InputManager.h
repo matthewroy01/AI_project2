@@ -7,20 +7,23 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_image.h>
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
 
 #include <sstream>
 #include <stdio.h>
 
 class Game;
+class Vector2D;
 
 class InputManager : public Trackable
 {
 	private :
 		// bools that keep track of whether or not a key is still being pressed (sort of a way to cheat in "al_key_up")
-		bool mAdown, mSdown, mDdown;
+		// assignment 1
+		// bool mAdown, mSdown, mDdown;
+		// assignment 2
+		bool mSdown, mFdown, mDdown, mIdown, mPlusdown, mMinusdown, mVdown, mRdown, mAdown;
+
 
 		// mouse and keyboard state
 		ALLEGRO_MOUSE_STATE mouseState;
@@ -28,9 +31,6 @@ class InputManager : public Trackable
 
 		// the mouse position
 		std::stringstream mousePos;
-
-		// the font
-		ALLEGRO_FONT* mpFont;
 
 	public :
 		InputManager();
@@ -40,7 +40,7 @@ class InputManager : public Trackable
 
 		void Update(); 
 		
-		inline ALLEGRO_FONT* getFont() const { return mpFont; };
+		Vector2D getInputMousePos();
 };
 
 #endif

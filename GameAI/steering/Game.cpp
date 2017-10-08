@@ -24,6 +24,7 @@
 // new stuff
 #include "UnitManager.h"
 #include "InputManager.h"
+#include "UIManager.h"
 
 Game* gpGame = NULL;
 
@@ -130,6 +131,8 @@ bool Game::init()
 	}
 
 	mpMessageManager = new GameMessageManager();
+
+	mpUIManager = new UIManager();
 
 	//load buffers
 	mBackgroundBufferID = mpGraphicsBufferManager->loadBuffer("wallpaper.bmp");
@@ -243,6 +246,12 @@ void Game::processLoop()
 
 	// process messages
 	mpMessageManager->processMessagesForThisframe();
+
+	// update UI
+	mpUIManager->doUI();
+
+	// swap things off of the backbuffer
+	GRAPHICS_SYSTEM->swap();
 }
 
 Game* Game::getInstance()

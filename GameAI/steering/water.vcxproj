@@ -30,6 +30,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="Steering.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="UnitCreateArriveMessage.h" />
     <ClInclude Include="UnitCreateSeekMessage.h" />
     <ClInclude Include="UnitDeleteRandomMessage.h" />
@@ -56,6 +57,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="Steering.cpp" />
+    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UnitCreateArriveMessage.cpp" />
     <ClCompile Include="UnitCreateSeekMessage.cpp" />
     <ClCompile Include="UnitDeleteRandomMessage.cpp" />
@@ -116,7 +118,6 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <AdditionalIncludeDirectories>..\..\DeanLib;..\..\External Libs\Allegro5\include;</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
-      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies);allegro-5.0.10-monolith-md.lib;DeanLib.lib</AdditionalDependencies>

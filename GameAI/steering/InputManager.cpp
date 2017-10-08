@@ -8,6 +8,8 @@
 #include "Game.h"
 #include "GraphicsSystem.h"
 
+#include "Vector2D.h"
+
 InputManager::InputManager()
 {
 	mAdown = false;
@@ -22,9 +24,7 @@ InputManager::InputManager()
 
 InputManager::~InputManager()
 {
-	// delete the font
-	al_destroy_font(mpFont);
-	mpFont = NULL;
+	
 }
 
 bool InputManager::init()
@@ -38,29 +38,6 @@ bool InputManager::init()
 	if (!al_install_mouse())
 	{
 		printf("Mouse not installed!\n");
-		return false;
-	}
-
-	al_init_font_addon();
-	if (!al_init_ttf_addon())
-	{
-		printf("ttf font addon not initted properly!\n");
-		return false;
-	}
-
-	// install font
-	al_init_font_addon();
-	if (!al_init_ttf_addon())
-	{
-		printf("ttf font addon not initted properly!\n");
-		return false;
-	}
-
-	//actually load the font
-	mpFont = al_load_ttf_font("cour.ttf", 20, 0);
-	if (mpFont == NULL)
-	{
-		printf("ttf font file not loaded properly!\n");
 		return false;
 	}
 
@@ -78,15 +55,6 @@ void InputManager::Update()
 		MESSAGE_MANAGER->addMessage(pMessage, 0);
 	}
 
-	//create mouse text
-	std::stringstream mousePos;
-	mousePos << mouseState.x << ":" << mouseState.y;
-
-	//write text at mouse position
-	al_draw_text(mpFont, al_map_rgb(255, 255, 255), mouseState.x, mouseState.y, ALLEGRO_ALIGN_CENTRE, mousePos.str().c_str());
-
-	GRAPHICS_SYSTEM->swap();
-
 	//get current keyboard state
 	al_get_keyboard_state(&keyState);
 
@@ -96,15 +64,7 @@ void InputManager::Update()
 		GET_GAME->setShouldExit(true);
 	}
 
-	//if 'a' key is pressed create a random unit that arrives to the player's position
-	if (al_key_down(&keyState, ALLEGRO_KEY_A) && !mAdown)
-	{
-		mAdown = true;
-		GameMessage* pMessage = new UnitCreateArriveMessage();
-		MESSAGE_MANAGER->addMessage(pMessage, 0);
-	}
-
-	//if 's' key is pressed create a random unit that seeks to the player's position
+	//if 's' key is pressed create a unit that WANDERS and SEEKS
 	if (al_key_down(&keyState, ALLEGRO_KEY_S) && !mSdown)
 	{
 		mSdown = true;
@@ -112,7 +72,15 @@ void InputManager::Update()
 		MESSAGE_MANAGER->addMessage(pMessage, 0);
 	}
 
-	//if 's' key is pressed delete a random unit
+	//if 'f' key is pressed create a unit that WANDERS and FLEES
+	if (al_key_down(&keyState, ALLEGRO_KEY_F) && !mSdown)
+	{
+		mFdown = true;
+		GameMessage* pMessage = new UnitCreateSeekMessage();
+		MESSAGE_MANAGER->addMessage(pMessage, 0);
+	}
+
+	//if 'd' key is pressed delete a random unit
 	if (al_key_down(&keyState, ALLEGRO_KEY_D) && !mDdown)
 	{
 		mDdown = true;
@@ -120,8 +88,71 @@ void InputManager::Update()
 		MESSAGE_MANAGER->addMessage(pMessage, 0);
 	}
 
+	//if 'i' key is pressed delete a random unit
+	if (al_key_down(&keyState, ALLEGRO_KEY_I) && !mIdown)
+	{
+		mIdown = true;
+		GameMessage* pMessage = new UnitDeleteRandomMessage();
+		MESSAGE_MANAGER->addMessage(pMessage, 0);
+	}
+
+	//if '+' key is pressed increase the currently selected variable
+	if (al_key_down(&keyState, ALLEGRO_KEY_EQUALS) && !mPlusdown)
+	{
+		mPlusdown = true;
+		GameMessage* pMessage = new UnitDeleteRandomMessage();
+		MESSAGE_MANAGER->addMessage(pMessage, 0);
+	}
+
+	//if '-' key is pressed increase the currently selected variable
+	if (al_key_down(&keyState, ALLEGRO_KEY_MINUS) && !mMinusdown)
+	{
+		mMinusdown = true;
+		GameMessage* pMessage = new UnitDeleteRandomMessage();
+		MESSAGE_MANAGER->addMessage(pMessage, 0);
+	}
+
+	//if 'v' key is pressed select velocity
+	if (al_key_down(&keyState, ALLEGRO_KEY_V) && !mVdown)
+	{
+		mVdown = true;
+		GameMessage* pMessage = new UnitDeleteRandomMessage();
+		MESSAGE_MANAGER->addMessage(pMessage, 0);
+	}
+
+	//if 'r' key is pressed select detection radius
+	if (al_key_down(&keyState, ALLEGRO_KEY_R) && !mRdown)
+	{
+		mRdown = true;
+		GameMessage* pMessage = new UnitDeleteRandomMessage();
+		MESSAGE_MANAGER->addMessage(pMessage, 0);
+	}
+
+	//if 'a' key is pressed select angular velocity
+	if (al_key_down(&keyState, ALLEGRO_KEY_A) && !mAdown)
+	{
+		mAdown = true;
+		GameMessage* pMessage = new UnitDeleteRandomMessage();
+		MESSAGE_MANAGER->addMessage(pMessage, 0);
+	}
+
 	// check to see if you're still pressing the button so you can't create or delete a unit by just holding the key
-	if (!al_key_down(&keyState, ALLEGRO_KEY_A)) { mAdown = false; }
 	if (!al_key_down(&keyState, ALLEGRO_KEY_S)) { mSdown = false; }
+	if (!al_key_down(&keyState, ALLEGRO_KEY_F)) { mFdown = false; }
 	if (!al_key_down(&keyState, ALLEGRO_KEY_D)) { mDdown = false; }
+	if (!al_key_down(&keyState, ALLEGRO_KEY_I)) { mIdown = false; }
+	if (!al_key_down(&keyState, ALLEGRO_KEY_EQUALS)) { mPlusdown = false; }
+	if (!al_key_down(&keyState, ALLEGRO_KEY_MINUS)) { mMinusdown = false; }
+	if (!al_key_down(&keyState, ALLEGRO_KEY_V)) { mVdown = false; }
+	if (!al_key_down(&keyState, ALLEGRO_KEY_R)) { mRdown = false; }
+	if (!al_key_down(&keyState, ALLEGRO_KEY_A)) { mAdown = false; }
+}
+
+Vector2D InputManager::getInputMousePos()
+{
+	//create mouse text
+	std::stringstream mousePos;
+	Vector2D tmp(mouseState.x, mouseState.y);
+	return tmp;
+	//mousePos << tmp.setX(mouseState.x) << ":" << mouseState.y;
 }

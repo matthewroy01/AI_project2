@@ -20,6 +20,7 @@ class Sprite;
 // new stuff
 class UnitManager;
 class InputManager;
+class UIManager;
 
 const IDType BACKGROUND_SPRITE_ID = 0;
 const IDType PLAYER_ICON_SPRITE_ID = 1;
@@ -49,6 +50,7 @@ public:
 	inline GraphicsBufferManager* getGraphicsBufferManager() const { return mpGraphicsBufferManager; };
 	inline SpriteManager* getSpriteManager() const { return mpSpriteManager; };
 	inline GameMessageManager* getMessageManager() { return mpMessageManager; };
+	inline InputManager* getInputManager() { return mpInputManager; };
 	inline Timer* getMasterTimer() const { return mpMasterTimer; };
 	inline double getCurrentTime() const { return mpMasterTimer->getElapsedTime(); };
 
@@ -74,6 +76,7 @@ private:
 	// new stuff
 	UnitManager* mpUnitManager;
 	InputManager* mpInputManager;
+	UIManager* mpUIManager;
 
 	const int SPAWN_DISTANCE_ARRIVE = 200;
 	const int SPAWN_DISTANCE_SEEK = 100;
